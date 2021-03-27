@@ -1,0 +1,26 @@
+family:
+  name: Das Familie
+  entities:
+  - person.tarald
+  - person.jeanette
+  - person.tiril
+  - person.tuva
+  - person.trym
+
+gps_trackers:
+  name: GPS Trackers
+  entities:
+  - device_tracker.tarald_gps
+  - device_tracker.jeanette_gps
+  - device_tracker.tiril_gps
+  - device_tracker.tuva_gps
+  - device_tracker.trym_gps
+
+home_sensors:
+  name: Home States
+  entities:
+  - binary_sensor.jeanette_presence
+  - binary_sensor.tarald_presence
+  - binary_sensor.tiril_presence
+  - binary_sensor.tuva_presence
+  - binary_sensor.trym_presence

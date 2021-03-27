@@ -1,0 +1,39 @@
+device_tracker.satan:
+  icon: mdi:bluetooth
+device_tracker.tuva_tracking:
+  icon: mdi:target
+device_tracker.trymmoblue:
+  icon: mdi:bluetooth
+  friendly_name: trym_gps
+device_tracker.trym_tracking:
+  icon: mdi:target
+device_tracker.das_ifon:
+  icon: mdi:bluetooth
+  friendly_name: Das iFon BT
+device_tracker.tarald_tracking:
+  icon: mdi:target
+device_tracker.jeanettofon:
+  icon: mdi:bluetooth
+device_tracker.pippin:
+  icon: mdi:bluetooth
+device_tracker.tarald_bayesian:
+  icon: mdi:target
+device_tracker.tiril_bayesian:
+  icon: mdi:target
+device_tracker.trym_bayesian:
+  icon: mdi:target
+device_tracker.tuva_bayesian:
+  icon: mdi:target
+device_tracker.jeanette_bayesian:
+  icon: mdi:target
+device_tracker.tiril_tracking:
+  icon: mdi:target
+device_tracker.jeanette_tracking:
+  icon: mdi:target
+device_tracker.unifi_fa_28_fe_40_4d_98_default:
+  friendly_name: trym_bt
+media_player.pioneer_avr_zone2:
+  friendly_name: Pioneer Zone2
+media_player.pioneer_avr:
+  friendly_name: Pioneer Main
+media_player.basement: {}

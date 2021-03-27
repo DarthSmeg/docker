@@ -1,0 +1,401 @@
+- id: '1602233605126'
+  name: Watching film
+  entities:
+    light.featherball:
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - colorloop
+      - random
+      brightness: 77
+      hs_color:
+      - 38.667
+      - 52.941
+      rgb_color:
+      - 255
+      - 207
+      - 120
+      xy_color:
+      - 0.457
+      - 0.41
+      effect: none
+      friendly_name: Featherball
+      supported_features: 63
+      state: 'on'
+    light.coffee_table:
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - colorloop
+      - random
+      brightness: 77
+      hs_color:
+      - 37.778
+      - 52.941
+      rgb_color:
+      - 255
+      - 205
+      - 120
+      xy_color:
+      - 0.459
+      - 0.408
+      effect: none
+      friendly_name: Coffee table
+      supported_features: 63
+      state: 'on'
+    light.tv_1:
+      min_mireds: 250
+      max_mireds: 454
+      friendly_name: tv 1
+      supported_features: 35
+      state: 'off'
+    light.tv_2:
+      min_mireds: 250
+      max_mireds: 454
+      friendly_name: tv 2
+      supported_features: 35
+      state: 'off'
+    light.tv_3:
+      min_mireds: 250
+      max_mireds: 454
+      friendly_name: tv 3
+      supported_features: 35
+      state: 'off'
+    light.color_temperature_light_1:
+      min_mireds: 250
+      max_mireds: 454
+      brightness: 133
+      color_temp: 447
+      friendly_name: Color temperature light 1
+      supported_features: 43
+      state: 'on'
+    light.color_temperature_light_2:
+      min_mireds: 250
+      max_mireds: 454
+      brightness: 255
+      color_temp: 447
+      friendly_name: Color temperature light 2
+      supported_features: 43
+      state: 'on'
+    light.color_temperature_light_3:
+      min_mireds: 250
+      max_mireds: 454
+      brightness: 130
+      color_temp: 447
+      friendly_name: Color temperature light 3
+      supported_features: 43
+      state: 'on'
+    media_player.lounge:
+      friendly_name: Lounge
+      supported_features: 152461
+      state: 'off'
+    media_player.das_tv:
+      source_list:
+      - TV
+      - HDMI
+      - Netflix
+      - Prime Video
+      - YouTube
+      - Plex
+      - Internet
+      - HBO GO
+      volume_level: 0.07
+      is_volume_muted: false
+      media_title: Netflix
+      source: Netflix
+      friendly_name: Das TV
+      supported_features: 20413
+      device_class: tv
+      state: 'on'
+  icon: mdi:film
+- id: '1602263121881'
+  name: Relax
+  entities:
+    light.color_temperature_light_1:
+      min_mireds: 250
+      max_mireds: 454
+      brightness: 145
+      color_temp: 447
+      friendly_name: Color temperature light 1
+      supported_features: 43
+      state: 'on'
+    light.color_temperature_light_2:
+      min_mireds: 250
+      max_mireds: 454
+      brightness: 255
+      color_temp: 447
+      friendly_name: Color temperature light 2
+      supported_features: 43
+      state: 'on'
+    light.color_temperature_light_3:
+      min_mireds: 250
+      max_mireds: 454
+      brightness: 255
+      color_temp: 447
+      friendly_name: Color temperature light 3
+      supported_features: 43
+      state: 'on'
+    light.featherball:
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - colorloop
+      - random
+      brightness: 145
+      hs_color:
+      - 36.568
+      - 66.275
+      rgb_color:
+      - 255
+      - 188
+      - 85
+      xy_color:
+      - 0.502
+      - 0.414
+      effect: none
+      friendly_name: Featherball
+      supported_features: 63
+      state: 'on'
+    light.coffee_table:
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - colorloop
+      - random
+      brightness: 145
+      hs_color:
+      - 36.568
+      - 66.275
+      rgb_color:
+      - 255
+      - 188
+      - 85
+      xy_color:
+      - 0.502
+      - 0.414
+      effect: none
+      friendly_name: Coffee table
+      supported_features: 63
+      state: 'on'
+    light.tv_1:
+      min_mireds: 250
+      max_mireds: 454
+      brightness: 10
+      color_temp: 450
+      friendly_name: tv 1
+      supported_features: 35
+      state: 'on'
+    light.tv_2:
+      min_mireds: 250
+      max_mireds: 454
+      brightness: 10
+      color_temp: 450
+      friendly_name: tv 2
+      supported_features: 35
+      state: 'on'
+    light.tv_3:
+      min_mireds: 250
+      max_mireds: 454
+      brightness: 10
+      color_temp: 450
+      friendly_name: tv 3
+      supported_features: 35
+      state: 'on'
+    light.vindu_1:
+      min_mireds: 250
+      max_mireds: 454
+      brightness: 175
+      color_temp: 447
+      friendly_name: vindu 1
+      supported_features: 43
+      state: 'on'
+    light.vindu_2:
+      min_mireds: 250
+      max_mireds: 454
+      brightness: 177
+      color_temp: 447
+      friendly_name: vindu 2
+      supported_features: 43
+      state: 'on'
+    light.kitchen_1:
+      brightness: 145
+      friendly_name: Kitchen 1
+      supported_features: 41
+      state: 'on'
+    light.kitchen_2:
+      brightness: 145
+      friendly_name: Kitchen 2
+      supported_features: 41
+      state: 'on'
+    light.kitchen_3:
+      brightness: 145
+      friendly_name: Kitchen 3
+      supported_features: 41
+      state: 'on'
+    light.kjokkenbenk:
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - colorloop
+      - random
+      brightness: 145
+      hs_color:
+      - 36.568
+      - 66.275
+      rgb_color:
+      - 255
+      - 188
+      - 85
+      xy_color:
+      - 0.502
+      - 0.414
+      effect: none
+      friendly_name: Kjøkkenbenk
+      supported_features: 63
+      state: 'on'
+  icon: mdi:bookshelf
+- id: '1602863106130'
+  name: Party Time
+  entities:
+    light.kitchen_1:
+      brightness: 108
+      friendly_name: Kitchen 1
+      supported_features: 41
+      state: 'on'
+    light.kitchen_2:
+      brightness: 108
+      friendly_name: Kitchen 2
+      supported_features: 41
+      state: 'on'
+    light.kitchen_3:
+      brightness: 108
+      friendly_name: Kitchen 3
+      supported_features: 41
+      state: 'on'
+    light.kjokkenbenk:
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - colorloop
+      - random
+      brightness: 174
+      hs_color:
+      - 79.398
+      - 52.157
+      rgb_color:
+      - 212
+      - 255
+      - 121
+      xy_color:
+      - 0.356
+      - 0.494
+      effect: colorloop
+      friendly_name: Kjøkkenbenk
+      supported_features: 63
+      state: 'on'
+    light.color_temperature_light_1:
+      min_mireds: 250
+      max_mireds: 454
+      brightness: 145
+      color_temp: 447
+      friendly_name: Color temperature light 1
+      supported_features: 43
+      state: 'on'
+    light.color_temperature_light_2:
+      min_mireds: 250
+      max_mireds: 454
+      brightness: 255
+      color_temp: 447
+      friendly_name: Color temperature light 2
+      supported_features: 43
+      state: 'on'
+    light.color_temperature_light_3:
+      min_mireds: 250
+      max_mireds: 454
+      brightness: 255
+      color_temp: 447
+      friendly_name: Color temperature light 3
+      supported_features: 43
+      state: 'on'
+    light.vindu_1:
+      min_mireds: 250
+      max_mireds: 454
+      brightness: 255
+      color_temp: 447
+      friendly_name: vindu 1
+      supported_features: 43
+      state: 'on'
+    light.vindu_2:
+      min_mireds: 250
+      max_mireds: 454
+      brightness: 255
+      color_temp: 447
+      friendly_name: vindu 2
+      supported_features: 43
+      state: 'on'
+    light.featherball:
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - colorloop
+      - random
+      brightness: 145
+      hs_color:
+      - 32.093
+      - 67.451
+      rgb_color:
+      - 255
+      - 174
+      - 82
+      xy_color:
+      - 0.521
+      - 0.4
+      effect: colorloop
+      friendly_name: Featherball
+      supported_features: 63
+      state: 'on'
+    light.coffee_table:
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - colorloop
+      - random
+      brightness: 145
+      hs_color:
+      - 106.296
+      - 63.529
+      rgb_color:
+      - 130
+      - 255
+      - 93
+      xy_color:
+      - 0.259
+      - 0.595
+      effect: colorloop
+      friendly_name: Coffee table
+      supported_features: 63
+      state: 'on'
+    light.tv_1:
+      min_mireds: 250
+      max_mireds: 454
+      brightness: 10
+      color_temp: 450
+      friendly_name: tv 1
+      supported_features: 35
+      state: 'on'
+    light.tv_2:
+      min_mireds: 250
+      max_mireds: 454
+      brightness: 10
+      color_temp: 450
+      friendly_name: tv 2
+      supported_features: 35
+      state: 'on'
+    light.tv_3:
+      min_mireds: 250
+      max_mireds: 454
+      brightness: 10
+      color_temp: 450
+      friendly_name: tv 3
+      supported_features: 35
+      state: 'on'

@@ -1,0 +1,5 @@
+resources: 
+  - url: /hacsfiles/spotify-card/spotify-card.js
+    type: js
+background: var(--background-image)
+

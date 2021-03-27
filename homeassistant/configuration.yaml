@@ -1,0 +1,100 @@
+### General Configuration for Home Assistant ###
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+homeassistant:
+  customize: !include customize.yaml
+
+# Override Home-zone with smaller radius
+zone:
+  - name: home
+    latitude: 59.91237713119559
+    longitude: 10.599206301849337
+    radius: 40
+    icon: mdi:home
+
+### Logging options ###
+# Set the DB recorder variables
+recorder:
+  db_url: !secret mariadb_connection_url
+  commit_interval: 30
+  auto_purge: true
+  purge_keep_days: 7
+  exclude:
+    domains:
+      - updater
+    entity_globs:
+      - sensor.weather_*
+      - sensor.*_uptime
+      - sensor.uptime*
+    entities:
+      - sun.sun # Don't record sun data
+      - sensor.date
+      - sensor.chromecast_devices
+
+# Set sensible log-levels
+logger:
+  default: info
+  logs:
+    homeassistant.components.tradfri: debug
+    homeassistant.components.media_player: info
+    custom_components.spotcast: info
+    
+### Integrations ###
+# Text to speech
+tts:
+  - platform: google_translate
+
+# Google assistant integration
+google_assistant:
+  project_id: !secret google_project_id
+  service_account: !include SERVICE_ACCOUNT.JSON
+  report_state: false
+  exposed_domains: 
+    - switch
+    - group
+    - scene
+    - script
+    - sensor
+
+# Control Spotify
+spotify:
+  client_id: !secret client_id
+  client_secret: !secret client_secret
+
+spotcast:
+  sp_dc: !secret sp_dc
+  sp_key: !secret sp_key
+  accounts:
+    tiril:
+      sp_dc: !secret sp_dc_tiril
+      sp_key: !secret sp_key_tiril
+    tuva:
+      sp_dc: !secret sp_dc_tuva
+      sp_key: !secret sp_key_tuva
+
+# Verisure
+verisure:
+  username: !secret verisure_username
+  password: !secret verisure_password
+
+# Miele@Home
+miele:
+    client_id: !secret miele_client_id
+    client_secret: !secret miele_client_secret
+    lang: en
+    #cache_path: <optional. where to store the cached access token>
+
+### Include detailed configuration files
+light: !include lights.yaml
+media_player: !include media_player.yaml
+group: !include groups.yaml
+sensor: !include sensor.yaml
+binary_sensor: !include binary_sensor.yaml
+device_tracker: !include device_tracker.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+switch: !include switch.yaml
+frontend:
+  themes: !include_dir_merge_named themes

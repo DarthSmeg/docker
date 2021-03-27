@@ -1,0 +1,45 @@
+- platform: group
+  name: TV Lights
+  entities:
+    - light.tv_1
+    - light.tv_2
+    - light.tv_3
+
+- platform: group
+  name: Lounge Lights
+  entities:
+    - light.Featherball
+    - light.coffee_table
+
+- platform: group
+  name: Dining Room Lights
+  entities:
+    - light.color_temperature_light_1
+    - light.color_temperature_light_2
+    - light.color_temperature_light_3
+    - light.vindu_1
+    - light.vindu_2
+
+- platform: group
+  name: Kitchen Lights
+  entities:
+    - light.kitchen_1
+    - light.kitchen_2
+    - light.kitchen_3
+    - light.kjokkenbenk
+
+- platform: group
+  name: Hall Lights
+  entities:
+    - light.gang_1
+    - light.gang_2
+    - light.gang_3
+
+- platform: group
+  name: Bedroom Lights
+  entities:
+    - light.master_bedroom
+    - light.tirils_light
+    - light.tuvas_light
+    - light.tryms_light
+

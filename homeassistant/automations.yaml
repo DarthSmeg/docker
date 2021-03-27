@@ -1,0 +1,365 @@
+- id: '1602021274426'
+  alias: Turn off the lights when Tarald leaves home
+  description: ''
+  trigger:
+  - platform: zone
+    entity_id: person.tarald
+    zone: zone.home
+    event: leave
+  condition: []
+  action:
+  - domain: light
+    entity_id: light.master_bedroom
+    device_id: ee437d8f07f611eb80bcddfe71bc5533
+    type: turn_off
+  mode: single
+- id: '1602021604754'
+  alias: Turn off the lights when Tiril leaves home
+  description: ''
+  trigger:
+  - platform: zone
+    entity_id: person.tiril
+    zone: zone.home
+    event: leave
+  - platform: state
+    entity_id: device_tracker.tiril
+    from: home
+    to: not_home
+  condition: []
+  action:
+  - domain: light
+    entity_id: light.tirils_light
+    device_id: 1d03e04707f711eb8dd9093de4e0c329
+    type: turn_off
+  mode: single
+- id: '1602021640328'
+  alias: Turn off the lights when Tuva leaves home
+  description: ''
+  trigger:
+  - platform: zone
+    entity_id: person.tuva
+    zone: zone.home
+    event: leave
+  - platform: state
+    entity_id: device_tracker.tuva
+    from: home
+    to: not_home
+  condition: []
+  action:
+  - domain: light
+    entity_id: light.tuvas_light
+    device_id: 1cfe021907f711eb8596a17005fb56f4
+    type: turn_off
+  mode: single
+- id: '1602051006204'
+  alias: Turn off the lights when Trym leaves home
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: person.trym
+    from: home
+    to: not_home
+  - platform: state
+    entity_id: device_tracker.trym
+    to: not_home
+    from: home
+  condition: []
+  action:
+  - domain: light
+    entity_id: light.tryms_light
+    device_id: 1d0348ec07f711eb86a04b3e391d30b7
+    type: turn_off
+  mode: single
+- id: '1602062514061'
+  alias: Welcome Trym
+  description: Greet Trym when he comes home
+  trigger:
+  - platform: state
+    entity_id: person.trym
+    from: not_home
+    to: home
+  condition:
+  - condition: state
+    entity_id: input_boolean.welcome_greetings
+    state: 'on'
+  action:
+  - delay: 00:00:30
+  - service: tts.google_translate_say
+    data:
+      entity_id: media_player.livingroom_hub
+      message: Welcome home, Princess Trym. You are a very handsome boy.
+  mode: single
+- id: '1602062742033'
+  alias: Welcome Tuva
+  description: Greet Tuva when she comes home
+  trigger:
+  - platform: state
+    entity_id: person.tuva
+    from: not_home
+    to: home
+  condition:
+  - condition: state
+    entity_id: input_boolean.welcome_greetings
+    state: 'on'
+  action:
+  - delay: 00:00:30
+  - service: media_player.volume_set
+    data:
+      volume_level: 0.7
+    entity_id: media_player.livingroom_hub
+  - service: tts.google_translate_say
+    data:
+      entity_id: media_player.livingroom_hub
+      message: Welcome home, Bad-ass Bobby. You are a fantastic girl, and I love you
+        very much.
+  mode: single
+- id: '1602062841779'
+  alias: Welcome Tiril
+  description: Greet Tiril when she comes home
+  trigger:
+  - platform: state
+    entity_id: person.tiril
+    from: not_home
+    to: home
+  condition:
+  - condition: state
+    entity_id: input_boolean.welcome_greetings
+    state: 'on'
+  action:
+  - delay: 00:00:30
+  - service: tts.google_translate_say
+    data:
+      entity_id: media_player.livingroom_hub
+      message: Welcome home, Tirel. You are awesome in every way.
+  mode: single
+- id: '1602257268347'
+  alias: Welcome Jeanette
+  description: Greet Jeanette when she comes home
+  trigger:
+  - platform: state
+    from: not_home
+    to: home
+    entity_id: person.jeanette
+  condition:
+  - condition: state
+    entity_id: input_boolean.welcome_greetings
+    state: 'on'
+  action:
+  - delay: 00:00:50
+  - service: media_player.volume_set
+    data:
+      volume_level: 0.7
+    entity_id: media_player.livingroom_hub
+  - service: tts.google_translate_say
+    data:
+      entity_id: media_player.livingroom_hub
+      message: Welcome home, Jeanette. This house just isn't complete without you.
+  mode: single
+- id: '1602270734280'
+  alias: Deactivate voice greetings
+  description: ''
+  trigger:
+  - platform: time
+    at: '23:00'
+  condition: []
+  action:
+  - service: input_boolean.turn_off
+    data: {}
+    entity_id: input_boolean.welcome_greetings
+  mode: single
+- id: '1602270765289'
+  alias: Activate voice greetings
+  description: ''
+  trigger:
+  - platform: time
+    at: 07:00
+  condition: []
+  action:
+  - service: input_boolean.turn_on
+    data: {}
+    entity_id: input_boolean.welcome_greetings
+  mode: single
+- id: '1602271043499'
+  alias: Rise and Shine
+  description: Wake us in the morning
+  trigger:
+  - platform: time
+    at: 07:30
+  condition:
+  - condition: state
+    entity_id: binary_sensor.workday_sensor
+    state: 'on'
+  action:
+  - service: tts.google_translate_say
+    data:
+      entity_id:
+      - media_player.nightmare_speaker
+      - media_player.hell
+      - media_player.bedroom_mini
+      - media_player.living_room_speaker
+      message: Good morning, time to rise and shine
+  mode: single
+- id: '1602404607655'
+  alias: Welcome Tarald
+  description: Greet Tarald when he comes home
+  trigger:
+  - platform: state
+    entity_id: person.tarald
+    from: not_home
+    to: home
+  condition:
+  - condition: state
+    entity_id: input_boolean.welcome_greetings
+    state: 'on'
+  action:
+  - delay: 00:00:30
+  - service: tts.google_translate_say
+    data:
+      entity_id: media_player.livingroom_hub
+      message: Welcome home, My Master. I live to serve you!
+  mode: single
+- id: '1602582667255'
+  alias: Notify when Jeanette leaves work
+  description: ''
+  trigger:
+  - platform: zone
+    entity_id: person.jeanette
+    zone: zone.hth
+    event: leave
+  condition: []
+  action:
+  - service: tts.google_translate_say
+    data:
+      entity_id: media_player.livingroom_hub
+      message: Jeanette has left work
+  mode: single
+- id: '1602776159785'
+  alias: Lounge Music
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: media_player.lounge
+    to: playing
+  condition: []
+  action:
+  - service: media_player.turn_on
+    data:
+      entity_id: media_player.pioneer_avr_zone2
+  - service: media_player.select_source
+    data:
+      entity_id: media_player.pioneer_avr_zone2
+      source: Lounge
+  mode: single
+- id: '1602776965519'
+  alias: Lounge Status
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: remote.das_hub
+  condition:
+  - condition: template
+    value_template: "{{ trigger.to_state.attributes.current_activity == \"Lounge Music\"\
+      \n      }}"
+  action:
+  - service: input_boolean.turn_on
+    data: {}
+    entity_id: input_boolean.lounge_on
+  mode: single
+- id: '1604003259633'
+  alias: Welcome Kent
+  description: Greet Kent when he visits
+  trigger:
+  - platform: state
+    entity_id: device_tracker.kents_mobil
+    from: not_home
+    to: home
+  condition:
+  - condition: state
+    entity_id: input_boolean.welcome_greetings
+    state: 'on'
+  action:
+  - delay: 00:00:30
+  - service: tts.google_translate_say
+    data:
+      entity_id: media_player.livingroom_hub
+      message: Welcome master Kent. I expect there will be fun and games now
+  mode: single
+- id: '1610014036256'
+  alias: TV Surround
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: media_player.das_tv
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - service: media_player.turn_on
+    data: {}
+    entity_id: media_player.pioneer_avr
+  - service: media_player.select_source
+    data:
+      entity_id: media_player.pioneer_avr
+      source: Optical
+    entity_id: media_player.das_tv
+  mode: single
+- id: '1610016789987'
+  alias: TV Surround Off
+  description: When turning off TV
+  trigger:
+  - platform: state
+    entity_id: media_player.das_tv
+    from: 'on'
+    to: 'off'
+  condition: []
+  action:
+  - service: media_player.turn_off
+    data: {}
+    entity_id: media_player.pioneer_avr
+  mode: single
+- id: '1610405925345'
+  alias: Evening
+  description: ''
+  trigger:
+  - platform: time
+    at: '23:30'
+  condition: []
+  action:
+  - service: switch.turn_off
+    data: {}
+    entity_id: switch.tradfri_outlet
+  mode: single
+- id: '1615133913987'
+  alias: Wake Tiril
+  description: Wake Tiril in the mornings
+  trigger:
+  - platform: time
+    at: 07:35
+  condition:
+  - condition: state
+    entity_id: binary_sensor.workday_sensor
+    state: 'on'
+  action:
+  - service: spotcast.start
+    data:
+      account: tiril
+      device_name: Hell
+      uri: spotify:track:53sSF069DeO67sgt9d4BOU
+  mode: single
+- id: '1615791226951'
+  alias: Wake Tuva
+  description: Wake Tuva in the mornings
+  trigger:
+  - platform: time
+    at: 07:40
+  condition:
+  - condition: state
+    entity_id: binary_sensor.workday_sensor
+    state: 'on'
+  action:
+  - service: spotcast.start
+    data:
+      account: tuva
+      device_name: Nightmare speaker
+      uri: spotify:track:53sSF069DeO67sgt9d4BOU
+  mode: single

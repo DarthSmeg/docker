@@ -3,13 +3,31 @@
 *
 # You can whitelist files/folders with !, these will not be ignored.
 !*.yml
+!*.yaml
 !.gitignore
 !*.md
 
-# Ignore folders.
+# Ignore folders in home directory
 .gnupg
 
-# Include SWAG Proxy Cinfigurations
+## Include Homeassistant config
+!/homeassistant
+
+# Ignore folders in homeassistant
+.storage
+.cloud
+.google.token
+
+# Ensure these YAML files are ignored, otherwise your secret data/credentials will leak.
+ip_bans.yaml
+secrets.yaml
+known_devices.yaml
+
+## Include Swag config
+# Include web pages
+!/web
+
+# Include SWAG Proxy Configurations
 !/swag
 /swag/*
 !/swag/nginx
@@ -17,3 +35,6 @@
 !/swag/nginx/proxy-confs
 /swag/nginx/proxy-confs/*.sample
 !/swag/nginx/proxy-confs/*.conf
+
+## About Node Red config
+# Node red has its own git client, and handles its own commits
