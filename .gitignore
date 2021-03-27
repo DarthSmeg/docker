@@ -1,0 +1,19 @@
+# Example .gitignore file for your config dir.
+# An * ensures that everything will be ignored.
+*
+# You can whitelist files/folders with !, these will not be ignored.
+!*.yml
+!.gitignore
+!*.md
+
+# Ignore folders.
+.gnupg
+
+# Include SWAG Proxy Cinfigurations
+!/swag
+/swag/*
+!/swag/nginx
+/swag/nginx/*
+!/swag/nginx/proxy-confs
+/swag/nginx/proxy-confs/*.sample
+!/swag/nginx/proxy-confs/*.conf
