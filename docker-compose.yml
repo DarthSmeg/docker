@@ -78,7 +78,6 @@ services:
     volumes:
       - ${USERDIR}/node-red:/data
       - ${USERDIR}/shared:/shared
-      - ${USERDIR}/.ssh/known_hosts:/usr/src/node-red/.ssh/known_hosts:ro
     ports:
       - "1880:1880"
     environment:

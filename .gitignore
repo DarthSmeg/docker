@@ -36,5 +36,11 @@ known_devices.yaml
 /swag/nginx/proxy-confs/*.sample
 !/swag/nginx/proxy-confs/*.conf
 
-## About Node Red config
-# Node red has its own git client, and handles its own commits
+## Include Node Red config
+# Node red has its own git client, and can handle its own commits. The below config duplicates this functionality.
+!/node-red
+/node-red/*
+!/node-red/flows.json
+!/node-red/flows_cred.json
+!/node-red/package.json
+
