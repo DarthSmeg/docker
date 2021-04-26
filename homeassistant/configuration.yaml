@@ -5,6 +5,10 @@ default_config:
 homeassistant:
   customize: !include customize.yaml
 
+discovery:
+  enable:
+    - dlna_dmr
+
 # Override Home-zone with smaller radius
 zone:
   - name: home

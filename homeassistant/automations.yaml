@@ -299,9 +299,9 @@
     entity_id: media_player.pioneer_avr
   - service: media_player.select_source
     data:
-      entity_id: media_player.pioneer_avr
-      source: Optical
-    entity_id: media_player.das_tv
+      source: TV
+    target:
+      entity_id: media_player.das_tv
   mode: single
 - id: '1610016789987'
   alias: TV Surround Off

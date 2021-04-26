@@ -119,14 +119,16 @@ services:
       - /mnt/store/downloads:/data
     environment:
       - OPENVPN_PROVIDER=PUREVPN
-      - OPENVPN_CONFIG=de2-ovpn-tcp
+      #- "OPENVPN_CONFIG=nl2-ovpn-tcp,nl2-ovpn-udp,se2-ovpn-tcp,de2-ovpn-tcp"
+      - "OPENVPN_CONFIG=se2-ovpn-udp"
       - OPENVPN_USERNAME=${VPN_USER}
       - OPENVPN_PASSWORD=${VPN_PASSWORD}
+      - OPENVPN_OPTS=--inactive 3600 --ping 10 --ping-exit 60 --mute-replay-warnings
       - LOCAL_NETWORK=192.168.1.0/24
-      #- PUID=${PUID} 
-      #- PGID=${PGID}
-      - TZ=${TZ}
-      
+      - TRANSMISSION_DOWNLOAD_QUEUE_SIZE=10
+      - PUID=${PUID} 
+      - PGID=${PGID}
+      - TZ=${TZ}      
 
   radarr:
     image: "linuxserver/radarr"
@@ -196,7 +198,7 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
     volumes:
-      - ${USERDIR}/omni:/config
+      - ${USERDIR}/ombi:/config
     ports:
       - 3579:3579
     restart: unless-stopped
