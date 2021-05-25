@@ -33,7 +33,7 @@
   api_key: !secret smartthings_token
   device_id: !secret samsung_tv_device_id
 
-# Nvidia Shield Pro. Use the Python ADB implementation
+# Nvidia Shield Pro. Use the Python ADB implementation, See https://selfhostedhome.com/integrating-nvidia-shield-with-home-assistant/
 - platform: androidtv
   name: Shield Pro
   host: 192.168.1.212

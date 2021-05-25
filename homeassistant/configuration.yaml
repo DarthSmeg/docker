@@ -43,6 +43,7 @@ logger:
     homeassistant.components.tradfri: debug
     homeassistant.components.media_player: info
     custom_components.spotcast: info
+    custom_components.asyncpioneer: warn
     
 ### Integrations ###
 # Text to speech
@@ -95,7 +96,7 @@ media_player: !include media_player.yaml
 group: !include groups.yaml
 sensor: !include sensor.yaml
 binary_sensor: !include binary_sensor.yaml
-device_tracker: !include device_tracker.yaml
+#device_tracker: !include device_tracker.yaml #Bluetooth not working
 automation: !include automations.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml

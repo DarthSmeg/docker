@@ -137,3 +137,14 @@ time_to_work:
       uri: spotify:track:7demHL0GXA6YmTNqw3Btz8
   mode: single
   icon: mdi:play
+spotify_upstairs:
+  alias: Spotify Upstairs
+  sequence:
+  - service: spotcast.start
+    data:
+      repeat: 'off'
+      device_name: Boombox
+      force_playback: true
+      start_volume: 65
+  mode: single
+  icon: mdi:play

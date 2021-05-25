@@ -363,3 +363,67 @@
       device_name: Nightmare speaker
       uri: spotify:track:53sSF069DeO67sgt9d4BOU
   mode: single
+- id: '1620138244953'
+  alias: Welcome Nora
+  description: Greet Nora when she visits
+  trigger:
+  - platform: state
+    entity_id: device_tracker.blablabopibop_3
+    from: not_home
+    to: home
+  condition:
+  - condition: state
+    entity_id: input_boolean.welcome_greetings
+    state: 'on'
+  action:
+  - delay: 00:00:30
+  - service: tts.google_translate_say
+    data:
+      entity_id: media_player.livingroom_hub
+      message: Welcome Mistress Nora. It is always nice to see you
+      language: English
+  mode: single
+- id: '1620138600116'
+  alias: Welcome Victor
+  description: Greet Victor when he visits
+  trigger:
+  - platform: state
+    entity_id: device_tracker.viktorsiniphone_3
+    from: not_home
+    to: home
+  condition:
+  - condition: state
+    entity_id: input_boolean.welcome_greetings
+    state: 'on'
+  action:
+  - delay: 00:00:30
+  - service: tts.google_translate_say
+    data:
+      entity_id: media_player.livingroom_hub
+      message: Welcome Victor. You're a clever boy, and it's a pleasure to have you
+        drop by
+  mode: single
+- id: '1621202110872'
+  alias: SHIELD Surround
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: media_player.shield_pro
+    to: playing
+    from: idle
+  condition: []
+  action:
+  - service: media_player.turn_on
+    data: {}
+    entity_id: media_player.pioneer_avr
+  - service: media_player.select_source
+    data:
+      source: Shield
+    target:
+      entity_id: media_player.pioneer_avr
+  - service: media_player.volume_set
+    target:
+      entity_id: media_player.das_tv
+    data:
+      volume_level: 0
+  mode: single

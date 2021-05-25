@@ -1,5 +1,69 @@
 version: '3.4'
 services:
+  plex:
+    image: ghcr.io/linuxserver/plex
+    container_name: plex
+    network_mode: host
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - VERSION=docker
+      - PLEX_CLAIM= #optional
+    volumes:
+      - ${MEDIADIR}:/config
+    restart: unless-stopped
+
+  samba:
+    container_name: samba
+    image: mbentley/timemachine:smb
+    network_mode: host
+    environment:
+      - CUSTOM_SMB_CONF=true
+      - CUSTOM_USER=false
+      - DEBUG_LEVEL=1
+      - HIDE_SHARES=no
+      - EXTERNAL_CONF=/users
+      - MIMIC_MODEL=TimeCapsule8,119
+      - SET_PERMISSIONS=false
+      - SMB_INHERIT_PERMISSIONS=yes
+      - SMB_NFS_ACES=yes
+      - SMB_PORT=445
+      - 'SMB_VFS_OBJECTS=catia fruit streams_xattr acl_xattr'
+      - 'VOLUME_SIZE_LIMIT=2 T'
+      - WORKGROUP=WORKGROUP
+    restart: unless-stopped
+    volumes:
+      - ${TIMEMACHINEDIR}:/opt/timemachine
+      - ${USERDIR}/roms:/opt/roms
+      - ${USERDIR}/minecraft:/opt/mc
+      - ${MEDIADIR}:/opt/media
+      - ${USERDIR}/samba/timemachine-users:/users
+      - ${USERDIR}/samba/timemachine-var-lib-samba:/var/lib/samba
+      - ${USERDIR}/samba/timemachine-var-cache-samba:/var/cache/samba
+      - ${USERDIR}/samba/timemachine-run-samba:/run/samba
+      - ${USERDIR}/samba/timemachine-etc/smb.conf:/etc/samba/smb.conf
+
+  minecraft:
+    image: itzg/minecraft-server:java16
+    container_name: mc
+    environment:
+      - UID=${PUID}
+      - GID=${PGID}
+      - TZ=${TZ}
+      - EULA=TRUE
+      - TYPE=PAPER
+      #- SPIGET_RESOURCES=81297 # Install plugins: Geyser
+      - ENABLE_ROLLING_LOGS=true
+      - USE_AIKAR_FLAGS=true
+    ports:
+      - 25565:25565/tcp
+      - 25575:25575/tcp
+      - 19132:19132/udp
+    volumes:
+      - ${USERDIR}/minecraft:/data
+    restart: unless-stopped
+
   swag:
     image: linuxserver/swag
     container_name: swag
@@ -52,7 +116,7 @@ services:
       - 10001:10001/udp
       - 8080:8080
       - 8443:8443
-      - 1900:1900/udp #optional
+      #- 1900:1900/udp #Required for Make controller discoverable on L2 network option, collides with Plex DLNA
       - 8843:8843 #optional
       - 8880:8880 #optional
       - 6789:6789 #optional
@@ -64,7 +128,7 @@ services:
     image: homeassistant/home-assistant:stable
     volumes:
       - ${USERDIR}/homeassistant:/config
-      - /mnt/store/media:/media
+      - ${MEDIADIR}:/media
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -87,20 +151,6 @@ services:
     user: "${PUID}:${PGID}"
     restart: unless-stopped
 
-  plex:
-    image: ghcr.io/linuxserver/plex
-    container_name: plex
-    network_mode: host
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
-      - VERSION=docker
-      - PLEX_CLAIM= #optional
-    volumes:
-      - /mnt/store/media:/config
-    restart: unless-stopped
-
   transmission-vpn:
     container_name: transmission-vpn
     image: haugene/transmission-openvpn
@@ -116,7 +166,7 @@ services:
       - 8.8.4.4
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - /mnt/store/downloads:/data
+      - ${DOWNLOADDIR}:/data
     environment:
       - OPENVPN_PROVIDER=PUREVPN
       #- "OPENVPN_CONFIG=nl2-ovpn-tcp,nl2-ovpn-udp,se2-ovpn-tcp,de2-ovpn-tcp"
@@ -135,8 +185,8 @@ services:
     container_name: "radarr"
     volumes:
       - ${USERDIR}/radarr:/config
-      - /mnt/store/downloads:/data
-      - /mnt/store/media/movies:/movies
+      - ${DOWNLOADDIR}:/data
+      - ${MEDIADIR}/movies:/movies
       - "/etc/localtime:/etc/localtime:ro"
     ports:
       - "7878:7878"
@@ -151,8 +201,8 @@ services:
     container_name: "sonarr"
     volumes:
       - ${USERDIR}/sonarr:/config
-      - /mnt/store/downloads:/data
-      - /mnt/store/media/series:/tv
+      - ${DOWNLOADDIR}:/data
+      - ${MEDIADIR}/series:/tv
       - "/etc/localtime:/etc/localtime:ro"
     ports:
         - "8989:8989"
@@ -167,7 +217,7 @@ services:
     container_name: "jackett"
     volumes:
       - ${USERDIR}/jackett:/config
-      - /mnt/store/downloads/completed:/downloads
+      - ${DOWNLOADDIR}/completed:/downloads
       - "/etc/localtime:/etc/localtime:ro"
     ports:
       - "9117:9117"
@@ -197,39 +247,10 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
+      - Logging:LogLevel:Default=Warning
+      - Logging:LogLevel:System=Warning
     volumes:
       - ${USERDIR}/ombi:/config
     ports:
       - 3579:3579
     restart: unless-stopped
-
-  timemachine:
-    container_name: timemachine
-    image: mbentley/timemachine:smb
-    network_mode: host
-    environment:
-      - CUSTOM_SMB_CONF=false
-      - CUSTOM_USER=false
-      - DEBUG_LEVEL=1
-      - HIDE_SHARES=no
-      - EXTERNAL_CONF=
-      - 'MIMIC_MODEL=TimeCapsule8,119'
-      - TM_USERNAME=timemachine
-      - TM_GROUPNAME=timemachine
-      - TM_UID=${PUID}
-      - TM_GID=${PGID}
-      - PASSWORD=${TM_PASSWORD}
-      - SET_PERMISSIONS=false
-      - SHARE_NAME=TimeMachine
-      - SMB_INHERIT_PERMISSIONS=no
-      - SMB_NFS_ACES=yes
-      - SMB_PORT=445
-      - 'SMB_VFS_OBJECTS=fruit streams_xattr'
-      - 'VOLUME_SIZE_LIMIT=2 T'
-      - WORKGROUP=WORKGROUP
-    restart: unless-stopped
-    volumes:
-      - /mnt/store/backup:/opt/timemachine
-      - ${USERDIR}/samba/timemachine-var-lib-samba:/var/lib/samba
-      - ${USERDIR}/samba/timemachine-var-cache-samba:/var/cache/samba
-      - ${USERDIR}/samba/timemachine-run-samba:/run/samba
