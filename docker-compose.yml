@@ -70,11 +70,11 @@ services:
       - 8920:8920/tcp
     restart: unless-stopped
     volumes:
-      - /home/jenkins/jellyfin:/config"
-      - /home/share/media/audio:/music"
-      - /home/share/media/audiobooks:/data/books"
-      - /home/share/media/movies:/data/movies"
-      - /home/share/media/series:/data/tvshows"
+      - /home/share/docker/jellyfin:/config
+      - /home/share/media/audio:/music
+      - /home/share/media/audiobooks:/data/books
+      - /home/share/media/movies:/data/movies
+      - /home/share/media/series:/data/tvshows
 
   lidarr:
     container_name: lidarr
