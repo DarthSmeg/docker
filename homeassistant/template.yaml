@@ -1,0 +1,121 @@
+- sensor:
+    - name: "track_tarald"
+      state: >
+          {% if is_state('device_tracker.tarald','home') or is_state('device_tracker.das_ifon','home') %}
+            Home
+          {% elif is_state('device_tracker.das_ifon','unknown') %}
+            Away
+          {% else %}
+            {{ states('device_tracker.das_ifon') }}
+          {% endif %}
+      attributes:
+        latitude: >
+          {% if is_state('device_tracker.tarald','home') %}
+            {{ state_attr('zone.home','latitude') }}
+          {% else %}
+            {{ state_attr('device_tracker.das_ifon','latitude') }}
+          {% endif %}
+        longitude: >
+          {% if is_state('device_tracker.tarald','home') %}
+            {{ state_attr('zone.home','longitude') }}
+          {% else %}
+            {{ state_attr('device_tracker.das_ifon','longitude') }}
+          {% endif %}
+
+- sensor:
+    - name: "track_jeanette"
+      state: >
+          {% if is_state('device_tracker.jeanette','home') or is_state('device_tracker.jeanette_gps','home') %}
+            Home
+          {% elif is_state('device_tracker.jeanette_gps','unknown') %}
+            Away
+          {% else %}
+            {{ states('device_tracker.jeanette_gps') }}
+          {% endif %}
+      attributes:
+        latitude: >
+          {% if is_state('device_tracker.jeanette','home') %}
+            {{ state_attr('zone.home','latitude') }}
+          {% else %}
+            {{ state_attr('device_tracker.jeanette_gps','latitude') }}
+          {% endif %}
+        longitude: >
+          {% if is_state('device_tracker.jeanette','home') %}
+            {{ state_attr('zone.home','longitude') }}
+          {% else %}
+            {{ state_attr('device_tracker.jeanette_gps','longitude') }}
+          {% endif %}
+          
+- sensor:
+    - name: "track_tiril"
+      state: >
+          {% if is_state('device_tracker.tiril','home') or is_state('device_tracker.tiril_gps','home') %}
+            Home
+          {% elif is_state('device_tracker.tiril_gps','unknown') or is_state('device_tracker.tiril_gps','home') %}
+            Away
+          {% else %}
+            {{ states('device_tracker.tiril_gps') }}
+          {% endif %}
+      attributes:
+        latitude: >
+          {% if is_state('device_tracker.tiril','home') %}
+            {{ state_attr('zone.home','latitude') }}
+          {% else %}
+            {{ state_attr('device_tracker.tiril_gps','latitude') }}
+          {% endif %}
+        longitude: >
+          {% if is_state('device_tracker.tiril','home') %}
+            {{ state_attr('zone.home','longitude') }}
+          {% else %}
+            {{ state_attr('device_tracker.tiril_gps','longitude') }}
+          {% endif %}
+          
+- sensor:
+    - name: "track_tuva"
+      state: >
+          {% if is_state('device_tracker.tuva','home') %}
+            Home
+          {% elif is_state('device_tracker.tuva_gps','unknown') or is_state('device_tracker.tuva_gps','home') or is_state('device_tracker.tuva_gps','not_home')%}
+            Away
+          {% else %}
+            {{ states('device_tracker.tuva_gps') }}
+          {% endif %}
+      attributes:
+        latitude: >
+          {% if is_state('device_tracker.tuva','home') %}
+            {{ state_attr('zone.home','latitude') }}
+          {% elif is_state('device_tracker.tuva_gps','unknown') %}
+            away
+          {% else %}
+            {{ state_attr('device_tracker.tuva_gps','latitude') }}
+          {% endif %}
+        longitude: >
+          {% if is_state('device_tracker.tuva','home') %}
+            {{ state_attr('zone.home','longitude') }}
+          {% else %}
+            {{ state_attr('device_tracker.tuva_gps','longitude') }}
+          {% endif %}
+
+- sensor:
+    - name: "track_trym"
+      state: >
+          {% if is_state('device_tracker.tryms_iphone_11_wifi','home') %}
+            Home
+          {% elif is_state('device_tracker.tryms_iphone_app','unknown') or is_state('device_tracker.tryms_iphone_app','home') %}
+            Away
+          {% else %}
+            {{ states('device_tracker.tryms_iphone_app') }}
+          {% endif %}
+      attributes:
+        latitude: >
+          {% if is_state('device_tracker.trym','home') %}
+            {{ state_attr('zone.home','latitude') }}
+          {% else %}
+            {{ state_attr('device_tracker.tryms_iphone_app','latitude') }}
+          {% endif %}
+        longitude: >
+          {% if is_state('device_tracker.trym','home') %}
+            {{ state_attr('zone.home','longitude') }}
+          {% else %}
+            {{ state_attr('device_tracker.tryms_iphone_app','longitude') }}
+          {% endif %}

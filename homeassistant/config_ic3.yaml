@@ -1,0 +1,39 @@
+# Config file for the icloud 3 integration
+# https://gcobb321.github.io/icloud3/#/chapters/1.6-configuring-starting-icloud3
+
+devices: 
+  - device_name: tryms_iphone
+    email: trymhr@icloud.com
+    name: Trym
+    iosapp_installed: true
+    iosapp_suffix: _app
+
+  - device_name: Das iFon
+    email: tmhr77@gmail.com
+    name: Tarald
+    iosapp_installed: true
+
+  - device_name: taralds_apple_watch
+    email: tmhr77@gmail.com
+    name: Taralds Watch
+    iosapp_installed: false
+
+#-- Formatting Parameters---------------------------------------
+unit_of_measurement: km
+time_format: 24
+display_zone_fname: True
+
+#--Zone/Tracking Parameters-----------------------------------------
+inzone_interval: '60 min'
+max_interval: '4 hrs'
+center_in_zone: True
+stationary_inzone_interval: '30 min'
+stationary_still_time: '8 min'
+stationary_zone_offset: 1, 0
+travel_time_factor: .6
+distance_method: calc
+
+#--Accuracy Parameters-------------------------------------
+gps_accuracy_threshold: 100
+ignore_gps_accuracy_inzone: True
+old_location_threshold: '3 min'
