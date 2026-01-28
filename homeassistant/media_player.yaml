@@ -1,24 +1,3 @@
-# Custom Pioneer config
-- platform: asyncpioneer
-  host: 192.168.1.208
-  port: 8102
-
-  # Options
-  disabled_sources:
-    - "Adapter Port"
-    - "TUNER"
-    - "FAVORITES"
-    - "INTERNET RADIO"
-    - "Kjeller"
-    - "HDMI 6"
-    - "iPod/USB"
-    - "THome"
-    - "MEDIA SERVER"
-    - "ADAPTER PORT"
-  zones:
-    - zone: "Zone2"
-      name: "Zone 2"
-
 # Custom Samsung TV Config
 - platform: samsungtv_tizen
   host: 192.168.1.210
@@ -34,6 +13,6 @@
   device_id: !secret samsung_tv_device_id
 
 # Nvidia Shield Pro. Use the Python ADB implementation, See https://selfhostedhome.com/integrating-nvidia-shield-with-home-assistant/
-- platform: androidtv
-  name: Shield Pro
-  host: 192.168.1.212
+#- platform: androidtv
+#  name: Shield Pro
+#  host: 192.168.1.212

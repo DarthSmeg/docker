@@ -7,9 +7,7 @@ device_tracker.trymmoblue:
   friendly_name: trym_gps
 device_tracker.trym_tracking:
   icon: mdi:target
-device_tracker.das_ifon:
-  icon: mdi:bluetooth
-  friendly_name: Das iFon BT
+device_tracker.das_ifon: {}
 device_tracker.tarald_tracking:
   icon: mdi:target
 device_tracker.jeanettofon:
@@ -37,3 +35,5 @@ media_player.pioneer_avr_zone2:
 media_player.pioneer_avr:
   friendly_name: Pioneer Main
 media_player.basement: {}
+device_tracker.tryms_iphone:
+  icon: mdi:cellphone-iphone

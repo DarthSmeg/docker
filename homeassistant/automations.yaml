@@ -60,9 +60,8 @@
     from: home
     to: not_home
   - platform: state
-    entity_id: device_tracker.trym
-    to: not_home
-    from: home
+    entity_id: person.trym
+    to: School
   condition: []
   action:
   - domain: light
@@ -184,12 +183,16 @@
   description: Wake us in the morning
   trigger:
   - platform: time
-    at: 07:30
+    at: 07:30:00
   condition:
   - condition: state
-    entity_id: binary_sensor.workday_sensor
+    entity_id: binary_sensor.workday
     state: 'on'
   action:
+  - service: switch.turn_on
+    data: {}
+    target:
+      entity_id: switch.tradfri_outlet
   - service: tts.google_translate_say
     data:
       entity_id:
@@ -234,7 +237,7 @@
       message: Jeanette has left work
   mode: single
 - id: '1602776159785'
-  alias: Lounge Music
+  alias: Lounge playing
   description: ''
   trigger:
   - platform: state
@@ -243,12 +246,14 @@
   condition: []
   action:
   - service: media_player.turn_on
-    data:
-      entity_id: media_player.pioneer_avr_zone2
+    data: {}
+    target:
+      device_id: ed2918bbc2e32bb07c97b97478718978
   - service: media_player.select_source
     data:
-      entity_id: media_player.pioneer_avr_zone2
       source: Lounge
+    target:
+      device_id: ed2918bbc2e32bb07c97b97478718978
   mode: single
 - id: '1602776965519'
   alias: Lounge Status
@@ -258,8 +263,8 @@
     entity_id: remote.das_hub
   condition:
   - condition: template
-    value_template: "{{ trigger.to_state.attributes.current_activity == \"Lounge Music\"\
-      \n      }}"
+    value_template: "{{ trigger.to_state.attributes.current_activity == \"Lounge Music\"\n
+      \     }}"
   action:
   - service: input_boolean.turn_on
     data: {}
@@ -427,3 +432,133 @@
     data:
       volume_level: 0
   mode: single
+- id: '1623684335475'
+  alias: Out of Disk
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.disk_use_percent_home
+    above: '90'
+  condition: []
+  action:
+  - service: notify.mobile_app_das_ifon
+    data:
+      message: Disk almost full!
+  mode: single
+- id: '1623684736423'
+  alias: Lounge off
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: media_player.lounge
+    to: 'off'
+  condition: []
+  action:
+  - service: media_player.turn_off
+    target:
+      device_id: ed2918bbc2e32bb07c97b97478718978
+  mode: single
+- id: '1623762692151'
+  alias: Sonos Battery Warning
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.sonos_roam_battery
+    below: '10'
+  condition: []
+  action:
+  - service: notify.mobile_app_das_ifon
+    data:
+      message: Sonos Roam almost dead!
+  mode: single
+- id: '1634061868991'
+  alias: Out of Memory
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.memory_use_percent
+    above: '95'
+  condition: []
+  action:
+  - service: notify.mobile_app_das_ifon
+    data:
+      message: Memory almost full!
+  mode: single
+- id: '1634061897521'
+  alias: Out of Swap
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.swap_use_percent
+    above: '90'
+  condition: []
+  action:
+  - service: notify.mobile_app_das_ifon
+    data:
+      message: Swap almost full!
+  mode: single
+- id: '1639475198489'
+  alias: Keep IKEA running
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: light.tryms_light
+    to: unavailable
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+      milliseconds: 0
+  condition: []
+  action:
+  - service: homeassistant.reload_config_entry
+    data:
+      entry_id: 419008cc7270d1ebdd3e189126bb976f
+  mode: single
+- id: '1653515808637'
+  alias: Scheduled Internet Downtime
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_boolean.ischedule
+    from: 'off'
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: input_boolean.enforce_iaccess_schedule
+    state: 'on'
+  action:
+  - service: switch.turn_on
+    data: {}
+    target:
+      entity_id: switch.scheduled_iclients
+  mode: single
+- id: '1653515871699'
+  alias: Scheduled Internet Uptime
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_boolean.ischedule
+    from: 'on'
+    to: 'off'
+  condition: []
+  action:
+  - service: homeassistant.turn_off
+    data: {}
+    target:
+      entity_id: input_boolean.ischedule
+  mode: single
+- id: '1661762239257'
+  alias: Color Loop - Downstairs
+  description: Cycles colours in all lights in the Lounge, Dining room and the Kitchen.
+    Use it for party time! :)
+  use_blueprint:
+    path: hugalafutro/Color_Loop.yaml
+    input:
+      cl_light:
+        entity_id:
+        - light.lounge_lights
+        - light.dining_room_lights
+        - light.kitchen_lights

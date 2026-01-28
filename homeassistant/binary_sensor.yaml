@@ -1,54 +1,28 @@
-- platform: workday
-  country: Norway
+#- platform: workday
+#  country: 'NO'
+#  name: workday
 
-- platform: bayesian
-  prior: 0.63
-  name: Tuva Presence
-  probability_threshold: 0.9
-  device_class: presence
-  observations:
-  - entity_id: 'device_tracker.tuva'
-    prob_given_true: 0.9
-    prob_given_false: 0.1
-    platform: 'state'
-    to_state: 'home'
-  - entity_id: 'device_tracker.tuva_gps'
-    prob_given_true: 0.9
-    prob_given_false: 0.1
-    platform: 'state'
-    to_state: 'home'
+#- platform: workday
+#  country: 'NO'
+#  name: school_night_sensor
+#  days_offset: 1
+#  country: 'NO' 
 
 - platform: bayesian
   prior: 0.63
   name: Trym Presence
-  probability_threshold: 0.9
+  probability_threshold: 0.8
   device_class: presence
   observations:
-  - entity_id: 'device_tracker.trym'
+  - entity_id: 'device_tracker.tryms_iphone_11_wifi'
     prob_given_true: 0.9
-    prob_given_false: 0.1
+    prob_given_false: 0.4 # Tryms WiFi disconnecter ofte
     platform: 'state'
     to_state: 'home'
-  - entity_id: 'device_tracker.trymmoblue'
+  - entity_id: 'device_tracker.tryms_iphone_app'
     prob_given_true: 0.9
-    prob_given_false: 0.1
-    platform: 'state'
-    to_state: 'home'
-
-- platform: bayesian
-  prior: 0.63
-  name: Tiril Presence
-  probability_threshold: 0.9
-  device_class: presence
-  observations:
-  - entity_id: 'device_tracker.tiril'
-    prob_given_true: 0.9
-    prob_given_false: 0.1
-    platform: 'state'
-    to_state: 'home'
-  - entity_id: 'device_tracker.pippin'
-    prob_given_true: 0.9
-    prob_given_false: 0.1
+#    prob_given_false: 0.8 # Tryms GPS er upålitelig når han er på tur
+    prob_given_false: 0.4 # Test -
     platform: 'state'
     to_state: 'home'
 
@@ -60,12 +34,12 @@
   observations:
   - entity_id: 'device_tracker.jeanette'
     prob_given_true: 0.9
-    prob_given_false: 0.1
+    prob_given_false: 0.0
     platform: 'state'
     to_state: 'home'
-  - entity_id: 'device_tracker.jeanettofon'
+  - entity_id: 'device_tracker.jeanette_gps'
     prob_given_true: 0.9
-    prob_given_false: 0.1
+    prob_given_false: 0.1 # Jeanette har på mobildata, og GPSen er pålitelig
     platform: 'state'
     to_state: 'home'
 
@@ -75,101 +49,34 @@
   probability_threshold: 0.9
   device_class: presence
   observations:
-  - entity_id: 'device_tracker.tarald'
+  - entity_id: 'device_tracker.das_ifon_wifi'
     prob_given_true: 0.9
     prob_given_false: 0.1
     platform: 'state'
     to_state: 'home'
-  - entity_id: 'device_tracker.das_ifon'
+  - entity_id: 'device_tracker.das_ifon_app'
     prob_given_true: 0.9
     prob_given_false: 0.1
     platform: 'state'
     to_state: 'home'
 
-- platform: template
-  sensors:
-    track_tarald:
-      value_template: >-
-          {{ is_state('device_tracker.tarald','home') or is_state('device_tracker.das_ifon','home') }}
-      device_class: 'presence'
-      attribute_templates:
-        latitude: >-
-          {% if is_state('device_tracker.tarald','home') %}
-            {{ state_attr('zone.home','latitude') }}
-          {% else %}
-            {{ state_attr('device_tracker.tarald_gps','latitude') }}
-          {% endif %}
-        longitude: >-
-          {% if is_state('device_tracker.tarald','home') %}
-            {{ state_attr('zone.home','longitude') }}
-          {% else %}
-            {{ state_attr('device_tracker.tarald_gps','longitude') }}
-          {% endif %}
-    track_jeanette:
-      value_template: >-
-          {{ is_state('device_tracker.jeanette','home') or is_state('device_tracker.jeanettofon','home') }}
-      device_class: 'presence'
-      attribute_templates:
-        latitude: >-
-          {% if is_state('device_tracker.jeanette','home') %}
-            {{ state_attr('zone.home','latitude') }}
-          {% else %}
-            {{ state_attr('device_tracker.jeanette_gps','latitude') }}
-          {% endif %}
-        longitude: >-
-          {% if is_state('device_tracker.jeanette','home') %}
-            {{ state_attr('zone.home','longitude') }}
-          {% else %}
-            {{ state_attr('device_tracker.jeanette_gps','longitude') }}
-          {% endif %}
-    track_tiril:
-      value_template: >-
-          {{ is_state('device_tracker.tiril','home') or is_state('device_tracker.pippin','home') }}
-      device_class: 'presence'
-      attribute_templates:
-        latitude: >-
-          {% if is_state('device_tracker.tiril','home') %}
-            {{ state_attr('zone.home','latitude') }}
-          {% else %}
-            {{ state_attr('device_tracker.tiril_gps','latitude') }}
-          {% endif %}
-        longitude: >-
-          {% if is_state('device_tracker.tiril','home') %}
-            {{ state_attr('zone.home','longitude') }}
-          {% else %}
-            {{ state_attr('device_tracker.tiril_gps','longitude') }}
-          {% endif %}
-    track_tuva:
-      value_template: >-
-          {{ is_state('device_tracker.tuva','home') or is_state('device_tracker.satan','home') }}
-      device_class: 'presence'
-      attribute_templates:
-        latitude: >-
-          {% if is_state('device_tracker.tuva','home') %}
-            {{ state_attr('zone.home','latitude') }}
-          {% else %}
-            {{ state_attr('device_tracker.tuva_gps','latitude') }}
-          {% endif %}
-        longitude: >-
-          {% if is_state('device_tracker.tuva','home') %}
-            {{ state_attr('zone.home','longitude') }}
-          {% else %}
-            {{ state_attr('device_tracker.tuva_gps','longitude') }}
-          {% endif %}
-    track_trym:
-      value_template: >-
-          {{ is_state('device_tracker.trym','home') or is_state('device_tracker.trymmoblue','home') }}
-      device_class: 'presence'
-      attribute_templates:
-        latitude: >-
-          {% if is_state('device_tracker.trym','home') %}
-            {{ state_attr('zone.home','latitude') }}
-          {% else %}
-            {{ state_attr('device_tracker.trym_gps','latitude') }}
-          {% endif %}
-        longitude: >-
-          {% if is_state('device_tracker.trym','home') %}
-            {{ state_attr('zone.home','longitude') }}
-          {% else %}
-            {{ state_attr('device_tracker.trym_gps','longitude') }}
-          {% endif %}
+
+#- platform: template
+#  sensors:
+#    tracktest_tuva:
+#      value_template: >
+#          {{ is_state('device_tracker.tuva','home') or is_state('device_tracker.tuva_gps','home') }}
+#      device_class: 'presence'
+#      attribute_templates:
+#        latitude: >
+#          {% if is_state('device_tracker.tuva','home') %}
+#            {{ state_attr('zone.home','latitude') }}
+#          {% else %}
+#            {{ state_attr('device_tracker.tuva_gps','latitude') }}
+#          {% endif %}
+#        longitude: >
+#          {% if is_state('device_tracker.tuva','home') %}
+#            {{ state_attr('zone.home','longitude') }}
+#          {% else %}
+#            {{ state_attr('device_tracker.tuva_gps','longitude') }}
+#          {% endif %}

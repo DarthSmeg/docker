@@ -44,7 +44,10 @@ party_time:
       uri: spotify:playlist:37i9dQZF1DX5wgKYQVRARv
       random_song: true
       shuffle: true
-  - scene: scene.party_time
+  - service: automation.turn_on
+    data: {}
+    target:
+      entity_id: automation.color_loop
   mode: single
 music:
   alias: loungeplay_sketchy

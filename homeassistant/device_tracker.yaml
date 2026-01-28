@@ -1,7 +1,12 @@
-- platform: bluetooth_tracker
-  new_device_defaults:
-    track_new_devices: true
+#- platform: bluetooth_tracker
+#  new_device_defaults:
+#    track_new_devices: true
 
-- platform: bluetooth_le_tracker
-  new_device_defaults:
-    track_new_devices: true
+#- platform: bluetooth_le_tracker
+#  new_device_defaults:
+#    track_new_devices: true
+
+- platform: icloud3
+  username: !secret iclouduser
+  password: !secret icloudpw
+  exclude_sensors: lzonn,lzont,name

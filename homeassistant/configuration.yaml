@@ -5,16 +5,22 @@ default_config:
 homeassistant:
   customize: !include customize.yaml
 
-discovery:
-  enable:
-    - dlna_dmr
+# Configure HTTP proxies
+http:
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 127.0.0.1 #localhost
+    - 192.168.1.200 #lux
+    - 172.18.0.0/24 #docker_net 
+  ip_ban_enabled: False
+  login_attempts_threshold: 5
 
 # Override Home-zone with smaller radius
 zone:
   - name: home
     latitude: 59.91237713119559
     longitude: 10.599206301849337
-    radius: 40
+    radius: 30
     icon: mdi:home
 
 ### Logging options ###
@@ -23,10 +29,12 @@ recorder:
   db_url: !secret mariadb_connection_url
   commit_interval: 30
   auto_purge: true
-  purge_keep_days: 7
+  purge_interval: 1
+  purge_keep_days: 5
   exclude:
     domains:
-      - updater
+      - update
+      - automation
     entity_globs:
       - sensor.weather_*
       - sensor.*_uptime
@@ -35,15 +43,33 @@ recorder:
       - sun.sun # Don't record sun data
       - sensor.date
       - sensor.chromecast_devices
+      - sensor.icloud3_event_log
+    event_types:
+      - call_service # Don't record actions
 
 # Set sensible log-levels
 logger:
-  default: info
+  default: warn
   logs:
-    homeassistant.components.tradfri: debug
-    homeassistant.components.media_player: info
-    custom_components.spotcast: info
+#    homeassistant.components.tradfri: debug
+#    homeassistant.components.media_player: debug
+#    custom_components.spotcast: debug
     custom_components.asyncpioneer: warn
+
+# Example configuration.yaml entry for Google Mail.
+notify:
+  - name: "NOTIFIER_NAME"
+    platform: smtp
+    server: "smtp.gmail.com"
+    port: 587
+    timeout: 15
+    sender: !secret google_email
+    encryption: starttls
+    username: !secret google_email
+    password: !secret google_pass
+    recipient:
+      - !secret google_email
+    sender_name: "Home Assistant"
     
 ### Integrations ###
 # Text to speech
@@ -62,26 +88,19 @@ google_assistant:
     - script
     - sensor
 
-# Control Spotify
-spotify:
-  client_id: !secret client_id
-  client_secret: !secret client_secret
+# Control Spotify - YAML config obsolete
+#spotify:
+#  client_id: !secret client_id
+#  client_secret: !secret client_secret
 
 spotcast:
   sp_dc: !secret sp_dc
   sp_key: !secret sp_key
+  country: NO
   accounts:
-    tiril:
-      sp_dc: !secret sp_dc_tiril
-      sp_key: !secret sp_key_tiril
     tuva:
       sp_dc: !secret sp_dc_tuva
       sp_key: !secret sp_key_tuva
-
-# Verisure
-verisure:
-  username: !secret verisure_username
-  password: !secret verisure_password
 
 # Miele@Home
 miele:
@@ -90,13 +109,18 @@ miele:
     lang: en
     #cache_path: <optional. where to store the cached access token>
 
+# IP: is your home assistant IP
+# Config Entry: is the unique config entry for your Tradfri and can be found in your directory config/.storage/core.config_entries. Search for Tradfri and use code Identity
+# Long-Lived Access Token can be created in the HA menu under your instance name
+
 ### Include detailed configuration files
 light: !include lights.yaml
 media_player: !include media_player.yaml
 group: !include groups.yaml
 sensor: !include sensor.yaml
 binary_sensor: !include binary_sensor.yaml
-#device_tracker: !include device_tracker.yaml #Bluetooth not working
+template: !include template.yaml
+device_tracker: !include device_tracker.yaml #Bluetooth not working
 automation: !include automations.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml
