@@ -137,6 +137,21 @@ services:
     volumes:
       - /home/jenkins/ombi:/config
 
+  portainer:
+    container_name: portainer
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    image: portainer/portainer-ce:lts
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /home/jenkins/portainer:/data
+    ports:
+      - 9443:9443
+      - 8000:8000  # Remove if you do not intend to use Edge Agents
+
   prowlarr:
     container_name: prowlarr
     environment:
@@ -208,7 +223,7 @@ services:
     volumes:
       - /home/jenkins/shelfmark:/config
       - /home/share/downloads/calibre:/books
-      - /home/share/downloads:/client/path
+      - /home/share/downloads:/data
 
   sonarr:
     container_name: sonarr
